@@ -5,7 +5,6 @@ import {TodoInterface, TodoFormInterface} from '../Interfaces'
 
 const ToDoForm = (props: TodoFormInterface) => {
 
-    let currID = 0;
     const inputRef = useRef<HTMLInputElement>(null)
     const [values, setValues] = useState('')
 
@@ -19,7 +18,7 @@ const ToDoForm = (props: TodoFormInterface) => {
             
             const newTodo: TodoInterface = {
                 data: {
-                    id: String(currID++),
+                    id: Date().toLocaleString(),
                     name: values,
                     iscompleted: false,
                 }
