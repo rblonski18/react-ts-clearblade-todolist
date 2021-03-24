@@ -50,7 +50,7 @@ const App: FC = () => {
   function handleTodoCreate(todo: TodoInterface) {
 
     var collection = cb.Collection({collectionName: 'Todo-List'});
-    collection.create(todo, (err: any, data: any) => {
+    collection.create(todo.data, (err: any, data: any) => {
       if(err)
         throw new Error(data);
       else {
