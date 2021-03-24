@@ -18,9 +18,11 @@ const ToDoForm = (props: TodoFormInterface) => {
         if (event.key === 'Enter') {
             
             const newTodo: TodoInterface = {
-                id: String(currID++),
-                name: values,
-                isCompleted: false,
+                data: {
+                    id: String(currID++),
+                    name: values,
+                    iscompleted: false,
+                }
             }
 
             props.handleTodoCreate(newTodo)

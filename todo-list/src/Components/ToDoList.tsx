@@ -10,7 +10,7 @@ const ToDoList = (props: TodoListInterface) => {
           <div className="todo-list">
             <ul>
               {props.todos.map((todo) => (
-                <li key={todo.id}>
+                <li key={todo.data.id}>
                   <TodoItem 
                     todo={todo}
                     handleTodoUpdate={props.handleTodoUpdate}

@@ -1,9 +1,11 @@
 import React from "react";
 
 export interface TodoInterface {
-    id: string;
-    name: string;
-    isCompleted: boolean;
+    data: {
+        id: string;
+        name: string;
+        iscompleted: boolean;
+    }
 }
 
 export interface TodoFormInterface {
