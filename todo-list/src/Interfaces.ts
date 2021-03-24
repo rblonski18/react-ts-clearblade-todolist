@@ -16,13 +16,13 @@ export interface TodoFormInterface {
 export interface TodoListInterface {
     handleTodoUpdate: (event: React.ChangeEvent<HTMLInputElement>, id: string) => void;
     handleTodoRemove: (id: string) => void;
-    handleTodoComplete: (id: string) => void;
+    handleTodoComplete: (id: string, isComp: boolean) => void;
     todos: TodoInterface[];
 }
 
 export interface TodoItemInterface {
     handleTodoUpdate: (event: React.ChangeEvent<HTMLInputElement>, id: string) => void;
     handleTodoRemove: (id: string) => void;
-    handleTodoComplete: (id: string) => void;
+    handleTodoComplete: (id: string, isComp: boolean) => void;
     todo: TodoInterface;
 }

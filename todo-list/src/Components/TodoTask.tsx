@@ -4,7 +4,7 @@ import { TodoItemInterface } from "../Interfaces"
 const TodoItem = (props: TodoItemInterface) => {
     return (
         <div className="todo-item">
-            <div onClick={() => props.handleTodoComplete(props.todo.data.id)}>
+            <div onClick={() => props.handleTodoComplete(props.todo.data.id, props.todo.data.iscompleted)}>
                 {props.todo.data.iscompleted ? (
                     <span className="todo-item-checked">&#x2713;</span>
                 ) : (

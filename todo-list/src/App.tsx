@@ -1,4 +1,4 @@
-import React, { useState, FC, ChangeEvent, useEffect } from 'react';
+import React, { useState, FC, ChangeEvent, useEffect, useMemo } from 'react';
 import './App.css';
 import { ClearBlade } from 'clearblade-js-client'
 import 'clearblade-js-client/lib/mqttws31';
@@ -9,42 +9,33 @@ import { TodoInterface } from './Interfaces'
 
 const App: FC = () => {
 
-  const cb = new ClearBlade();
+
+  const cb = useMemo(() => {
+    return new ClearBlade();
+  }, []);
+
   const [todos, setTodos] = useState<TodoInterface[]>([])
 
   useEffect(() => {
-
-    /*
-    fetch("https://platform.clearblade.com/admin/auth", {
-      method: 'POST',
-      body: JSON.stringify({
-        email: 'roryjblonski@gmail.com',
-        password: 'tempPassword',
-      }),
-    }).then(response => response.json())
-      .then(data => initCallback) */
-
-    
     cb.init({
       URI: "https://platform.clearblade.com",
       systemKey: "eee5a7850ca2a4baabc2d686dc3f",
       systemSecret: "EEE5A7850CC0EBFCAEC5ADA9D18C01",
-      //email: "roryjblonski@gmail.com",
-      //password: "tempPassword",
       callback: initCallback
     });
-    
-  })
-  
-  
-  function initCallback(err: boolean, msg: any) {
-    if(err) {
-      throw new Error(msg);
-    } else {
-      var collection = cb.Collection({collectionName: 'Todo-List'});
-      collection.fetch(collectionFetchCallback);
+
+    function initCallback(err: boolean, msg: any) {
+      if(err) {
+        throw new Error(msg);
+      } else {
+        var collection = cb.Collection({collectionName: 'Todo-List'});
+        collection.fetch(collectionFetchCallback);
+      }
     }
-  }
+    
+  }, [cb])
+  
+  
 
   function collectionFetchCallback(err: any, rows: any) {
     if(err) {
@@ -84,13 +75,13 @@ const App: FC = () => {
     setTodos(newTodosState)
  }
 
-function handleTodoComplete(id: string) {
+function handleTodoComplete(id: string, isComp: boolean) {
 
   const query = cb.Query({collectionName: "Todo-List"});
   const qCheck: any = query.equalTo('id', id);
 
   let changes = {
-    iscompleted: true
+    iscompleted: !isComp
   };
     
   const callback = (err: any, data: any) => {
