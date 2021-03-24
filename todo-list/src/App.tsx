@@ -71,6 +71,19 @@ const App: FC = () => {
   }
 
  function handleTodoRemove(id: string) {
+
+    var collection = cb.Collection({collectionName: 'Todo-List'});
+    const query = cb.Query({collectionName: "Todo-List"});
+    const qCheck: any = query.equalTo('id', id);
+
+    collection.remove(qCheck, (err: any, data: any) => {
+      if(err)
+        throw new Error(data);
+      else {
+        return data;
+      }
+    })
+    
     const newTodosState: TodoInterface[] = todos.filter((todo: TodoInterface) => todo.data.id !== id)
     setTodos(newTodosState)
  }
